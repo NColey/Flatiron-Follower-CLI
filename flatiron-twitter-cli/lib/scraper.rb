@@ -14,13 +14,14 @@ require 'open-uri'
 		get_student_data('div.blog-title h3 a').collect {|name_data| name_data.text}
 	end
 
-	def get_student_page_links
+	def student_page_array
 		get_student_data('div.blog-title h3 a').collect do |name_data|
 			"https://learn-co-students.github.io/deploy-on-day-1-web-0915/" + name_data['href']
 		end
 	end
-	
+	binding.pry
 	def get_student_twitter_username
+
 		get_student_data('div.blog-title h3 a').each do |student_name|
 			student_noko_doc(student_name).css(".social-icons a")
 		end
@@ -29,7 +30,7 @@ require 'open-uri'
 	def build_student_hash
 		count = 0
 		student_name_array.each_with_object({}) do |name, name_hash|
-			name_hash[name] = {page: get_student_page_links[count], twitter_username: get_student_twitter_username[count]}
+			name_hash[name] = {page: student_page_array[count], twitter_username: get_student_twitter_username[count]}
 			count +=1
 		end
 	end
