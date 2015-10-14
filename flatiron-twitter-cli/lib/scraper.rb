@@ -22,7 +22,7 @@ require 'open-uri'
 	
 	def twitter_username_array
 		student_page_array.each do |page_link|
-			noko_document = Nokogiri::HTML(open(page_link))
+			noko_document = Nokogiri::HTML(page_link)
 			social_media_data = noko_document.css(".social-icons a")
 			twitter_username_array << social_media_data.first
 		end
