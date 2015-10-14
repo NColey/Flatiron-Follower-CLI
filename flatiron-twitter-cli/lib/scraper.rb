@@ -19,18 +19,20 @@ require 'open-uri'
 			"https://learn-co-students.github.io/deploy-on-day-1-web-0915/" + name_data['href']
 		end
 	end
-	binding.pry
-	def get_student_twitter_username
-
-		get_student_data('div.blog-title h3 a').each do |student_name|
-			student_noko_doc(student_name).css(".social-icons a")
+	
+	def twitter_username_array
+		student_page_array.each do |page_link|
+			noko_document = Nokogiri::HTML(open(page_link))
+			social_media_data = noko_document.css(".social-icons a")
+			twitter_username_array << social_media_data.first
 		end
+		twitter_username_array
 	end
 
 	def build_student_hash
 		count = 0
 		student_name_array.each_with_object({}) do |name, name_hash|
-			name_hash[name] = {page: student_page_array[count], twitter_username: get_student_twitter_username[count]}
+			name_hash[name] = {page: student_page_array[count], twitter_username: twitter_username_array[count]}
 			count +=1
 		end
 	end
