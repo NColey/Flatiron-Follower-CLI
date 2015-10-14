@@ -1,7 +1,3 @@
-require 'pry'
-require 'Nokogiri'
-require 'open-uri'
-
 class Scraper
 
 	def noko_data
