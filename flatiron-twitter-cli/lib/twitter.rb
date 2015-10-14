@@ -1,12 +1,8 @@
-require 'twitter'
-require 'yaml'
-require 'pry'
-
 class TwitterApi
   attr_reader :client
 
   def initialize
-    keys = YAML.load_file('../application.yml')
+    keys = YAML.load_file('application.yml')
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = keys['CONSUMER_KEY']
       config.consumer_secret     = keys['CONSUMER_SECRET']
