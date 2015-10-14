@@ -36,6 +36,8 @@ def student_twitter_hash
 	#there are a couple people without correct names.
 end
 
+hash_twitter_only = student_twitter_hash.reject{|name, url| url =="https://twitter.com/"}
+
 array_of_handles = student_twitter_hash.values.reject{|url| url == "https://twitter.com/"}.map{|url| url[20..-1]}
 binding.pry
 # def build_student_hash
