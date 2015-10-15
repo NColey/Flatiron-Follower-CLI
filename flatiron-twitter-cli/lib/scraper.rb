@@ -62,4 +62,31 @@ class Scraper
 		username_hash.inject({}) {|hash, (name, twitter_link)| hash[name] = twitter_link.slice! "https://twitter.com/"; hash}
 		return username_hash
 	end
+
+	def remove_self_from_array(twitter_handle)
+		username_array.reject {|username| username == twitter_handle}
+	end
+
+	def remove_self_from_hash(twitter_handle)
+		twitter_username_hash.reject {|name, handle| handle == twitter_handle}
+	end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
