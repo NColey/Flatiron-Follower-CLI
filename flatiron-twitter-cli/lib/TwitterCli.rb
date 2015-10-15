@@ -1,9 +1,8 @@
 class TwitterCli
-    attr_accessor :scraper, :twitter
+    attr_accessor :scrape, :twitter
 
     def call
         puts "Welcome to Flatiron Follower!"
-
         puts "Please enter your Twitter handle."
         twitter_handle = gets.chomp 
         options
@@ -54,16 +53,16 @@ class TwitterCli
 
     def follow_one_classmate
         puts "Please enter the name of the classmate you want to follow."
-        name = gets.chomp.downcase
-        #convert to twitter handle
+        name = gets.chomp
+        twitter_handle = scrape.twitter_username_hash[name]
         twitter.follow(twitter_handle)
         puts "You have followed #{twitter_handle}."
     end
 
     def tweet
         puts "Please enter the name of the classmate you want to tweet at."
-        name = gets.chomp.downcase
-        #convert to twitter handle
+        name = gets.chomp
+        twitter_handle = scrape.twitter_username_hash[name]
         puts "Please enter your tweet"
         message = gets.chomp
         tweet = "@#{twitter_handle} #{message}"
@@ -73,7 +72,7 @@ class TwitterCli
     def view_timeline
         puts "Whose tweets would you like to view? Enter a classmates name."
         name = gets.chomp
-        #convert name to twitter handle
+        twitter_handle = scrape.twitter_username_hash[name]
         twitter.classmate_timeline(twitter_handle)
     end
 
@@ -85,8 +84,8 @@ class TwitterCli
 
     def unfollow_one_classmate
         puts "Please enter the name of the classmate you want to unfollow."
-        name = gets.chomp.downcase
-        #convert to twitter handle
+        name = gets.chomp
+        twitter_handle = scrape.twitter_username_hash[name]
         twitter.unfollow(twitter_handle)
     end
 
