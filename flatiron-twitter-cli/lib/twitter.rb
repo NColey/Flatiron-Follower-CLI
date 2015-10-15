@@ -13,7 +13,7 @@ class TwitterApi
   end
 
   def follow(username)
-    client.follow(username)
+    client.follow!(username)
   end
 
   def tweet_at_classmate(tweet)
@@ -25,7 +25,10 @@ class TwitterApi
   end
 
   def classmate_timeline(username)
-    client.user_timeline(username)
+    timeline_array = client.user_timeline(username)
+    timeline_array.map do |tweet|
+      puts tweet.text
+    end
   end
 
 end
