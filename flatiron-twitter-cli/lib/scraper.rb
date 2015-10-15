@@ -1,7 +1,12 @@
 class Scraper
+	attr_accessor :url 
+
+	def initialize
+		@url = "https://learn-co-students.github.io/deploy-on-day-1-web-0915/"
+	end
 
 	def noko_data
-		noko_document = Nokogiri::HTML(open("https://learn-co-students.github.io/deploy-on-day-1-web-0915/"))
+		noko_document = Nokogiri::HTML(open(url))
 	end
 
 	def get_student_data(selector)
@@ -37,10 +42,18 @@ class Scraper
 	end
 
 	def hash_twitter
-	  hash_twitter_only = student_twitter_hash.reject{|name, url| url =="https://twitter.com/"}
+	  hash = student_twitter_hash.reject{|name, url| url =="https://twitter.com/"}
+	  hash_cleansed = hash.delete_if do |name, link|
+	  	name == "" || name == "Student Name"
+	  end
+	  #add them back in
+	  hash_cleansed["Madeline Ford"] = "https://twitter.com/mford22392"
+	  hash_cleansed["Michael Sterling"] = "https://twitter.com/sterlinglit"
+	  hash_cleansed["Amanda Johns"] = "https://twitter.com/AmandaKJohns"
+	  hash_cleansed
 	end
 
 	def username_array
-		array_of_handles = student_twitter_hash.values.reject{|url| url == "https://twitter.com/"}.map{|url| url[20..-1]}
+		array_of_handles = hash_twitter.values.reject{|url| url == "https://twitter.com/"}.map{|url| url[20..-1]}
 	end
 end
