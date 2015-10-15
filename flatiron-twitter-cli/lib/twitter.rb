@@ -1,4 +1,5 @@
 class TwitterApi
+
   attr_reader :client
 
   def initialize
@@ -11,23 +12,15 @@ class TwitterApi
     end
   end
 
-  def follow_all(username_array)
-    client.follow(username_array)
-  end
-
-  def follow_classmate(username)
+  def follow(username)
     client.follow(username)
   end
 
-  def tweet_at_classmate(tweet, username)
+  def tweet_at_classmate(tweet)
     client.update(tweet)
   end
 
-  def unfollow_all(username_array)
-    client.unfollow(username_array)
-  end
-
-  def unfollow_classmate(username)
+  def unfollow(username)
     client.unfollow(username)
   end
 
