@@ -36,11 +36,17 @@ class Scraper
 		#there are a couple people without correct names.
 	end
 
-	def hash_twitter
-	  hash_twitter_only = student_twitter_hash.reject{|name, url| url =="https://twitter.com/"}
+	def twitter_link_hash
+	  twitter_link_hash = student_twitter_hash.reject{|name, url| url =="https://twitter.com/"}
 	end
 
 	def username_array
 		array_of_handles = student_twitter_hash.values.reject{|url| url == "https://twitter.com/"}.map{|url| url[20..-1]}
+	end
+
+	def twitter_username_hash
+		username_hash = twitter_link_hash
+		username_hash.inject({}) {|hash, (name, twitter_link)| hash[name] = twitter_link.slice! "https://twitter.com/"; hash}
+		return username_hash
 	end
 end
