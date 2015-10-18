@@ -36,8 +36,8 @@ class Controller
     end
 
     def view_timeline
-        puts "Whose tweets would you like to view? Enter a classmates name."
-        name = gets.chomp
+        view = ViewStudentTimeline.new
+        name = view.render
         twitter_handle = twitter_username_hash[name]
         twitter.classmate_timeline(twitter_handle)
     end
