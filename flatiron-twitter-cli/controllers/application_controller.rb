@@ -52,23 +52,26 @@ class Controller
 
     def unfollow_all_classmates
         begin
-        twitter.unfollow(username_array)
-        puts "You've unfollowed everyone."
+            twitter.unfollow(username_array)
+            view = UnfollowAllClassmatesSuccess.new
+            view.render
         rescue
-            puts "Some of your follow requests are still pending. You have unfollowed everyone else."
+            view = UnfollowAllClassmatesError.new
+            view.render            
         end
-
     end
 
     def unfollow_one_classmate
         begin
-        puts "Please enter the name of the classmate you want to unfollow."
-        name = gets.chomp
-        twitter_handle = twitter_username_hash[name]
-        twitter.unfollow(twitter_handle)
-        puts "You have unfollowed #{twitter_handle}"
+            view = UnfollowOneClassmate.new
+            name = view.render
+            twitter_handle = twitter_username_hash[name]
+            twitter.unfollow(twitter_handle)
+            view = UnfollowOneClassmateSuccess.new(twitter_handle)
+            view.render        
         rescue
-            puts "Your have unfollowed this classmate."
+            view = UnfollowOneClassmateSuccess.new(twitter_handle)
+            view.render  
         end
     end
 end
