@@ -25,7 +25,7 @@ class TwitterCli
             7. Exit
             EOS
             select_option
-            sleep(5)
+            sleep(2)
         end
     end
 

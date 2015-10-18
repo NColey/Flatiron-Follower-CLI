@@ -9,18 +9,26 @@ class Controller
 	end
 
 	def follow_your_classmates
-        twitter.follow(username_array)
-        view = FollowEveryone.new
-        view.render
+        begin
+            twitter.follow(username_array)
+            view = FollowEveryone.new
+            view.render
+        rescue
+            puts "Some of your classmates have protected accounts. You have followed everyone else."
+        end
         
     end
 
     def follow_one_classmate
+        begin
         puts "Please enter the name of the classmate you want to follow."
         name = gets.chomp
         twitter_handle = twitter_username_hash[name]
         twitter.follow(twitter_handle)
         puts "You have followed #{twitter_handle}."
+        rescue
+            puts "This classmate has a protected account. Your follow request is pending."
+        end
     end
 
     def tweet
@@ -43,15 +51,24 @@ class Controller
     end
 
     def unfollow_all_classmates
+        begin
         twitter.unfollow(username_array)
         puts "You've unfollowed everyone."
+        rescue
+            puts "Some of your follow requests are still pending. You have unfollowed everyone else."
+        end
+
     end
 
     def unfollow_one_classmate
+        begin
         puts "Please enter the name of the classmate you want to unfollow."
         name = gets.chomp
         twitter_handle = twitter_username_hash[name]
         twitter.unfollow(twitter_handle)
         puts "You have unfollowed #{twitter_handle}"
+        rescue
+            puts "Your have unfollowed this classmate."
+        end
     end
 end
