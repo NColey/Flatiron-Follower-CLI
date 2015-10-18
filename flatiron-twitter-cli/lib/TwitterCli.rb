@@ -55,10 +55,5 @@ class TwitterCli
         end
     end
 
-    # def exit
-    #     quit = true
-    #     exit
-    # end
-
 end
 
