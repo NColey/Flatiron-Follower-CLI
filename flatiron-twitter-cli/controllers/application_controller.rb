@@ -16,7 +16,6 @@ class Controller
         rescue
             view = FollowEveryoneError.new
             view.render
-            
         end
         
     end
@@ -24,11 +23,12 @@ class Controller
     def follow_one_classmate
         begin
             view = FollowOneClassmate.new
-            view.render
-            name = gets.chomp
+            name = view.render
             twitter_handle = twitter_username_hash[name]
             twitter.follow(twitter_handle)
-            puts "You have followed #{twitter_handle}."
+            view = FollowOneClassmateSuccess.new(twitter_handle)
+            view.render
+
         rescue
             view = FollowOneClassmateError.new
             view.render
@@ -37,22 +37,26 @@ class Controller
 
     def tweet
         view = ChooseAClassmateToTweetAt.new
-        view.render
-        name = gets.chomp
+        name = view.render
         twitter_handle = twitter_username_hash[name]
         view = EnterATweet.new
-        view.render
-        message = gets.chomp
+        message = view.render
         tweet = "@#{twitter_handle} #{message}"
         twitter.tweet_at_classmate(tweet)
-        puts "You have tweeted at #{twitter_handle}!"
+        view = SuccessfulTweetMessage.new(twitter_handle)
+        view.render
     end
 
     def view_timeline
-        view = ViewStudentTimeline.new
-        name = view.render
-        twitter_handle = twitter_username_hash[name]
-        twitter.classmate_timeline(twitter_handle)
+        begin
+            view = ViewStudentTimeline.new
+            name = view.render
+            twitter_handle = twitter_username_hash[name]
+            twitter.classmate_timeline(twitter_handle)
+        rescue
+            view = TimelineError.new
+            view.render
+        end
     end
 
     def unfollow_all_classmates
