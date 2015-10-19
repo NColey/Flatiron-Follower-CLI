@@ -14,20 +14,24 @@ class Controller
             view = FollowEveryone.new
             view.render
         rescue
-            puts "Some of your classmates have protected accounts. You have followed everyone else."
+            view = FollowEveryoneError.new
+            view.render
+            
         end
         
     end
 
     def follow_one_classmate
         begin
-        puts "Please enter the name of the classmate you want to follow."
-        name = gets.chomp
-        twitter_handle = twitter_username_hash[name]
-        twitter.follow(twitter_handle)
-        puts "You have followed #{twitter_handle}."
+            view = FollowOneClassmate.new
+            view.render
+            name = gets.chomp
+            twitter_handle = twitter_username_hash[name]
+            twitter.follow(twitter_handle)
+            puts "You have followed #{twitter_handle}."
         rescue
-            puts "This classmate has a protected account. Your follow request is pending."
+            view = FollowOneClassmateError.new
+            view.render
         end
     end
 
@@ -36,7 +40,8 @@ class Controller
         view.render
         name = gets.chomp
         twitter_handle = twitter_username_hash[name]
-        puts "Please enter your tweet"
+        view = EnterATweet.new
+        view.render
         message = gets.chomp
         tweet = "@#{twitter_handle} #{message}"
         twitter.tweet_at_classmate(tweet)
@@ -44,7 +49,8 @@ class Controller
     end
 
     def view_timeline
-        puts "Whose tweets would you like to view? Enter a classmates name."
+        view = SelectATimeline.new
+        view.render
         name = gets.chomp
         twitter_handle = twitter_username_hash[name]
         twitter.classmate_timeline(twitter_handle)
