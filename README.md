@@ -4,7 +4,7 @@ Welcome to Flatiron Student Follower. This is a command line application that al
 
 By scraping the Flatiron School [students page](https://learn-co-students.github.io/deploy-on-day-1-web-0915/) for our class we gathered the twitter handles for our classmates and sorted them into a hash, which, along with the Twitter API, we used to create methods that would allow us to follow our classmates, send them tweets, and unfollow our classmtes, all within a command line application!
 
-##Using our command line app
+##Using Our Command Line App
 
 We hope that this command line application can be used by fellow Web 0915 students to follow and tweet at their classmates. We currently do not yet have options for authentication so if you would like to use this program we encourage you to set up your own twitter keys (instructions below), fork our repository and then add an application.yml file that contains the twitter keys you just created. Here is the file structure of our program so you can see where to place the application.yml file:
 
@@ -47,7 +47,7 @@ We hope that this command line application can be used by fellow Web 0915 studen
 ├── README.md
 ```
 
-### Getting your API Keys
+### Getting Your API Keys
 
 If you don't have a Twitter account make sure to sign up for one first. Create a new application on Twitter in order to obtain the API keys you will need to use this application. You can get your API keys at [Twitter Apps](https://apps.twitter.com/). Head to the the `API Keys` section of your application page, scroll down, and click on the "generate access token" option to get your consumer token, consumer secret, access token, and acess token secret.
 
